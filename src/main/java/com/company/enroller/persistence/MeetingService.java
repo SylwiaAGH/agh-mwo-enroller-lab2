@@ -1,6 +1,7 @@
 package com.company.enroller.persistence;
 
 import com.company.enroller.model.Meeting;
+import com.company.enroller.model.Participant;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -39,9 +40,15 @@ public class MeetingService {
     }
 
 
-    public static void delete(Meeting participant) {
+    public static void delete(Meeting meeting) {
         Transaction transaction = session.getSession().beginTransaction();
-        session.getSession().delete(participant);
+        session.getSession().delete(meeting);
+        transaction.commit();
+    }
+
+    public static void update(Meeting meeting) {
+        Transaction transaction = session.getSession().beginTransaction();
+        session.getSession().merge(meeting);
         transaction.commit();
     }
 
