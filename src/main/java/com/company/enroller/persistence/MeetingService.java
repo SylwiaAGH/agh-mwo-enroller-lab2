@@ -1,7 +1,6 @@
 package com.company.enroller.persistence;
 
 import com.company.enroller.model.Meeting;
-import com.company.enroller.model.Participant;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -12,10 +11,13 @@ import java.util.Collection;
 @Component("meetingService")
 public class MeetingService {
 
-    Session session;
+    static Session session;
 
     public MeetingService() {
         session = DatabaseConnector.getInstance().getSession();
+    }
+
+    public static void deleteMeeting(Meeting meeting) {
     }
 
     public Collection<Meeting> getAll() {
@@ -37,5 +39,10 @@ public class MeetingService {
     }
 
 
+    public static void delete(Meeting participant) {
+        Transaction transaction = session.getSession().beginTransaction();
+        session.getSession().delete(participant);
+        transaction.commit();
+    }
 
 }
